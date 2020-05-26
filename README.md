@@ -4,7 +4,7 @@ Gomock unit test readme
 
 Use command Go:generate gomock unit test template while highlighting the method
 
-![ ](./sample-usage.gif?raw=true)
+![ ](https://github.com/pramonow/vscode-extension-ut/blob/master/sample-usage.gif?raw=true)
 
 ## Features
 
