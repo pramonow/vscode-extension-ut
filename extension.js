@@ -24,10 +24,13 @@ function activate(context) {
 	let disposable = vscode.commands.registerCommand('go.unittestgomock', function () {
 		// The code you place here will be executed every time your command is executed
 
+		//initialize
 		const editor = vscode.window.activeTextEditor;
 		let cursorPosition = editor.selection.start;
-		let wordRange = editor.document.getWordRangeAtPosition(cursorPosition);
-		let functionName = editor.document.getText(wordRange);
+
+		//getting function block
+		let wordRange = editor.document.getWordRangeAtPosition(cursorPosition)
+		let functionName = editor.document.getText(wordRange)
 
 		var wordLine = editor.document.lineAt(cursorPosition);
 		var textRange = new vscode.Range(wordLine.range.start, wordLine.range.end);
@@ -73,19 +76,23 @@ function activate(context) {
 		var returnList = afterVar.split(",")
 		console.log(returnList)
 
+		/*
+		type expectedResult struct {
+		${GetResultString(returnList)}	}
+		*/
+
 		var generatedTest = `
-func Test${extentionParam}_${functionName} (t *testing.T) {
+func Test_${extentionParam}_${functionName} (t *testing.T) {
 	//ctrl := gomock.NewController(t)
 	//defer ctrl.Finish
 
 	type args struct {
 ${GetArgString(argsList)}	}
+
 	//type mockedResult struct {
 	//	ret1 string
 	//  err1 error	
 	//}
-	type expectedResult struct {
-${GetResultString(returnList)}	}
 
 	//type mockGen struct {
 	//	db MockDB
@@ -103,8 +110,9 @@ ${GetWantString(returnList)}
 			name: "sample template",
 			//model: mockgen{
 			//	db:NewMockDB(ctrl),
-			//expect: func(db *MockDB, arg1, arg2, ret1, err1 interface{}) {
-			//	db.EXPECT().TestFunction(arg1, arg2).Return(ret1, err1)
+			//  expect: func(db *MockDB, arg1, arg2, ret1, err1 interface{}) {
+			//		db.EXPECT().TestFunction(arg1, arg2).Return(ret1, err1)
+			//	},
 			//},
 		},
 	}
@@ -115,11 +123,8 @@ ${GetWantString(returnList)}
 			//uc := NewUseCase(tt.model.db)
 			//tt.model.expect(tt.model.db, arg1, arg2, ret1, err1)
 
-
 			${extentionParam}Caller := ${pointerConstParam}${extentionParam}{}
 			${ConstructMethodCalling(extentionParam+"Caller", returnList, functionName, argsList)}
-
-				
 		})
 	}
 }`
