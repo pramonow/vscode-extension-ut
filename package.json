@@ -2,7 +2,7 @@
 	"name": "unittestgomock",
 	"displayName": "unittestgomock",
 	"description": "",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"publisher": "pramonow",
 	"engines": {
 		"vscode": "^1.44.0"

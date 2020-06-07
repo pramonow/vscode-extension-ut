@@ -17,3 +17,8 @@ Initial Release
 ### 0.0.3
 
 Fix append issue
+
+### 0.0.4
+
+Fix function naming issue
+Generated unit test adjustment
