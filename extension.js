@@ -5,7 +5,6 @@ const fs = require('fs')
 const helper = require("./helper.js");
 
 function ConstructVariable(name, type) {
-	
 	var variablePair = {
 		name:name,
 		type:type
@@ -18,9 +17,9 @@ function ConstructVariable(name, type) {
 /**
  * @param {vscode.ExtensionContext} context
  */
+// The code you place here will be executed every time your command is executed
 function activate(context) {	
 	let disposable = vscode.commands.registerCommand('go.unittestgomock', function () {
-		// The code you place here will be executed every time your command is executed
 
 		//initialize
 		const editor = vscode.window.activeTextEditor
@@ -81,21 +80,21 @@ function activate(context) {
 		var varList = result[1].match(beforeRegex)
 
 		var argsListString = varList[1].trim().split(",")
+		console.log(argsListString)
 
 		var tempType = ''
 		var argVarList = []
 
-		//iteration for variable
-		//from behind for variable like func asda (n,i int)
+		//iteration for variable from behind 
+		//done for function like func asda (n,i int)
 		for (var i = argsListString.length - 1; i >= 0; --i) {
-			argsListString[i] = argsListString[i].trim()
-			
+			argsListString[i] = argsListString[i].trim()	
 			var nameAndType = argsListString[i].split(" ")
 
 			if (nameAndType.length < 2) {
-				argVarList.push(ConstructVariable(nameAndType[0], tempType))
+				argVarList.unshift(ConstructVariable(nameAndType[0], tempType))
 			} else {
-				argVarList.push(ConstructVariable(nameAndType[0], nameAndType[1]))
+				argVarList.unshift(ConstructVariable(nameAndType[0], nameAndType[1]))
 				tempType = nameAndType[1]
 			}
 		}
@@ -160,7 +159,6 @@ ${helper.GetWantString(returnList)}
 		var fileName = currentlyOpenTabfilePath.replace('.go','');
 		fileName = fileName + "_test.go"
 
-		console.log("here")
 		WriteToFile(fileName,generatedTest, `Test_${extentionParam}_${functionName}`)
 	});
 
@@ -191,7 +189,6 @@ function WriteToFile(filename, message, testFunctionName) {
 			});
 		});
 	  } else {
-		console.log("The file exists!")
 
 		fs.readFile(filename, function (err, data) {
 			if (err) throw err;

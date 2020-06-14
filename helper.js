@@ -49,9 +49,7 @@ function ConstructMethodCalling(extension, returnList, funcName, argVarList) {
 	for (var i in returnList) {
 		let comma = ""
 
-		if (i == "0"){
-			comma = ""
-		} else {
+		if (i != "0") {
 			comma = " ,"
 		}
 
@@ -92,9 +90,7 @@ function ConstructMethodCalling(extension, returnList, funcName, argVarList) {
 	stringToReturn = stringToReturn + ":=" + extension + '.' + funcName +"("
 	for (var i in argVarList) {
 		let comma = ""
-		if (i == "0"){
-			comma = ""
-		} else {
+		if (i != "0"){
 			comma = " ,"
 		} 
 

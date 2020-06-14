@@ -26,7 +26,8 @@ Fix append issue
 Fix function naming issue
 Generated unit test adjustment
 
-### 0.1.0
+### 0.1.1
 
 Fix issue on multiline method
 Fix issue variable declaration like (a,b int)
+Fix jumbled up variable
